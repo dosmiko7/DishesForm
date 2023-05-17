@@ -1,14 +1,15 @@
 import classes from "./Form.module.scss";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import defaultValues from "../constants/defaultValuesForDishes";
-import IFormInput from "./shared/IFormInput.interface";
-import FormInputSlider from "./form-components/FormInputSlider";
-import FormSubmitButton from "./form-components/FormSubmitButton";
-import FormInputText from "./form-components/FormInputText";
-import FormInputSelect from "./form-components/FormInputSelect";
-import { Grid } from "@mui/material";
+import { defaultValues } from "../../constants/FormProps";
+import { IFormInput } from "../../interfaces/FormTypes";
+import FormInputSlider from "./FormInputSlider";
+import FormSubmitButton from "./FormSubmitButton";
+import FormInputText from "./FormInputText";
+import FormInputSelect from "./FormInputSelect";
+import { Box, Grid, Typography } from "@mui/material";
 import axios from "axios";
+import { formatData } from "../../utils/formatData";
 
 const Form = () => {
 	const methods = useForm<IFormInput>({
@@ -69,19 +70,6 @@ const Form = () => {
 		}
 	};
 
-	const formatData = (data: IFormInput) => {
-		const { prep_hours, prep_minutes, prep_seconds, ...rest } = data;
-		const preparation_time = `${prep_hours.toString().padStart(2, "0")}:${prep_minutes
-			.toString()
-			.padStart(2, "0")}:${prep_seconds.toString().padStart(2, "0")}`;
-
-		const updatedData = {
-			...rest,
-			preparation_time,
-		};
-		return updatedData;
-	};
-
 	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
 		const formattedData = formatData(data);
 		console.log(formattedData);
@@ -116,7 +104,12 @@ const Form = () => {
 				className={classes.form}
 				onSubmit={handleSubmit(onSubmit)}
 			>
-				<h1 className={classes.form__heading}>HexOcean Dishes</h1>
+				<Typography
+					variant="h3"
+					align="center"
+				>
+					HexOcean Dishes
+				</Typography>
 				<FormInputText
 					name="name"
 					control={control}
@@ -124,7 +117,7 @@ const Form = () => {
 					type="text"
 					label="Name"
 				/>
-				<div className={classes.form__duration_container}>
+				<Box className={classes.form__duration_container}>
 					<FormInputText
 						name={"prep_hours"}
 						control={control}
@@ -149,7 +142,7 @@ const Form = () => {
 						label="Seconds"
 						inputProps={{ min: 0, max: 59 }}
 					/>
-				</div>
+				</Box>
 				<FormInputSelect
 					name="type"
 					control={control}

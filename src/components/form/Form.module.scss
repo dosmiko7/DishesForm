@@ -1,15 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap");
-
 .container {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	max-width: 60rem;
-	max-height: 40rem;
+	max-height: 45rem;
 	border-radius: 20px;
 	overflow: hidden;
-	background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 65%, transparent 50%),
+	background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 57%, transparent 50%),
 		url(./form_pizza.jpg);
 	background-size: cover;
 	background-repeat: none;
@@ -25,17 +23,10 @@
 	box-sizing: border-box;
 	width: 50%;
 	height: 100%;
-	padding: 1rem;
+	padding: 2rem;
 	display: flex;
 	flex-direction: column;
-	gap: 1.3rem;
-
-	&__heading {
-		font-family: "Kanit", sans-serif;
-		font-size: 3rem;
-		align-self: center;
-		text-align: center;
-	}
+	gap: 1.5rem;
 
 	&__duration_container {
 		display: flex;

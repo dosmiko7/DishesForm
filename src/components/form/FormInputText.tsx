@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
-import { IComponentInputProps } from "./shared/IComponentInputProps.interface";
+import { IComponentInputProps } from "../../interfaces/FormTypes";
 
 const FormInputText = ({ name, control, rules, type, label, inputProps }: IComponentInputProps) => {
 	return (

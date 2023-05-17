@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
 import { Box, Slider, Typography } from "@mui/material";
-import { IComponentInputProps } from "./shared/IComponentInputProps.interface";
+import { IComponentInputProps } from "../../interfaces/FormTypes";
 
 const FormInputSlider = ({ name, control, rules, label, defaultValue, min, max }: IComponentInputProps) => {
 	return (

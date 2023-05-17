@@ -1,5 +1,4 @@
 import { ValidationRule } from "react-hook-form";
-import IFormInput from "../../shared/IFormInput.interface";
 
 export interface IComponentInputProps {
 	name: keyof IFormInput;
@@ -15,4 +14,16 @@ export interface IComponentInputProps {
 	defaultValue?: number;
 	onChange?: (event: any) => any;
 	transform?: any;
+}
+
+export interface IFormInput {
+	name: string;
+	type: string;
+	prep_hours: number;
+	prep_minutes: number;
+	prep_seconds: number;
+	no_of_slices?: number;
+	diameter?: number;
+	spiciness_scale?: number;
+	slices_of_bread?: number;
 }

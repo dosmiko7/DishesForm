@@ -1,6 +1,6 @@
 import { Controller } from "react-hook-form";
-import options from "../../constants/selectOptions";
-import { IComponentInputProps } from "./shared/IComponentInputProps.interface";
+import { options } from "../../constants/FormProps";
+import { IComponentInputProps } from "../../interfaces/FormTypes";
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
 
 const FormInputSelect = ({ name, control, rules, label }: IComponentInputProps) => {
