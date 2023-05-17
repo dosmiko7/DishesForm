@@ -3,13 +3,13 @@ import classes from "./Form.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { defaultValues } from "../../constants/FormProps";
 import { IFormInput } from "../../interfaces/FormTypes";
-import FormInputSlider from "./FormInputSlider";
 import FormSubmitButton from "./FormSubmitButton";
 import FormInputText from "./FormInputText";
 import FormInputSelect from "./FormInputSelect";
 import { Box, Grid, Typography } from "@mui/material";
 import axios from "axios";
 import { formatData } from "../../utils/formatData";
+import AdditionalInputs from "./FormAdditionalInputs";
 
 const Form = () => {
 	const methods = useForm<IFormInput>({
@@ -18,57 +18,6 @@ const Form = () => {
 	});
 	const { control, handleSubmit, watch, reset } = methods;
 	const selectedType = watch("type");
-
-	const renderAdditionalInputs = () => {
-		switch (selectedType) {
-			case "pizza":
-				return (
-					<>
-						<FormInputText
-							name="no_of_slices"
-							control={control}
-							rules={{ required: true }}
-							label="Number of slices"
-							type="number"
-							inputProps={{ min: 1 }}
-						/>
-						<FormInputText
-							name="diameter"
-							control={control}
-							rules={{ required: true }}
-							label="Diameter"
-							type="number"
-							inputProps={{ min: 1, step: 0.1 }}
-						/>
-					</>
-				);
-			case "soup":
-				return (
-					<FormInputSlider
-						name="spiciness_scale"
-						control={control}
-						rules={{ required: true }}
-						label="Spiciness"
-						defaultValue={5}
-						min={1}
-						max={10}
-					/>
-				);
-			case "sandwich":
-				return (
-					<FormInputText
-						name="slices_of_bread"
-						control={control}
-						rules={{ required: true }}
-						label="Slices of bread"
-						type="number"
-						inputProps={{ min: 1 }}
-					/>
-				);
-			default:
-				return null;
-		}
-	};
 
 	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
 		const formattedData = formatData(data);
@@ -149,7 +98,11 @@ const Form = () => {
 					rules={{ required: true, validate: (value) => value !== "default" }}
 					label="Type of dish"
 				/>
-				{renderAdditionalInputs()}
+				<AdditionalInputs
+					name="type"
+					type={selectedType}
+					control={control}
+				/>
 				<FormSubmitButton />
 			</form>
 		</Grid>
