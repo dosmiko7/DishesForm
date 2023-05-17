@@ -16,13 +16,13 @@ const FormInputText = ({ name, control, rules, type, label, inputProps }: ICompo
 						const inputValue = e.target.value;
 						const parsedValue = type === "number" ? parseFloat(inputValue) : inputValue;
 
-						if (type === "number" && typeof parsedValue === "string") {
+						if (type === "number" && typeof parsedValue !== "string" && isNaN(parsedValue)) {
 							onChange("");
 						} else {
 							onChange(parsedValue);
 						}
 					}}
-					value={isNaN(value) ? value.toString() : parseFloat(value)}
+					value={value}
 					label={label}
 					type={type}
 					inputProps={inputProps}
