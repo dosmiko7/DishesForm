@@ -6,6 +6,7 @@ import options from "../constants/selectOptions";
 import defaultValues from "../constants/defaultValuesForDishes";
 import IFormInput from "./shared/IFormInput.interface";
 import FormInputSlider from "./form-components/FormInputSlider";
+import FormSubmitButton from "./form-components/FormSubmitButton";
 
 const Form = () => {
 	const {
@@ -202,12 +203,7 @@ const Form = () => {
 				<Typography color="error">Please select a valid meal type</Typography>
 			)}
 			{renderAdditionalInputs()}
-			<Button
-				variant="outlined"
-				type="submit"
-			>
-				Submit dish
-			</Button>
+			<FormSubmitButton />
 		</form>
 	);
 };
