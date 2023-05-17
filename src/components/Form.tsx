@@ -8,6 +8,7 @@ import FormSubmitButton from "./form-components/FormSubmitButton";
 import FormInputText from "./form-components/FormInputText";
 import FormInputSelect from "./form-components/FormInputSelect";
 import { Grid } from "@mui/material";
+import axios from "axios";
 
 const Form = () => {
 	const methods = useForm<IFormInput>({
@@ -68,8 +69,40 @@ const Form = () => {
 		}
 	};
 
-	const onSubmit: SubmitHandler<IFormInput> = (data) => {
-		console.log(data);
+	const formatData = (data: IFormInput) => {
+		const { prep_hours, prep_minutes, prep_seconds, ...rest } = data;
+		const preparation_time = `${prep_hours.toString().padStart(2, "0")}:${prep_minutes
+			.toString()
+			.padStart(2, "0")}:${prep_seconds.toString().padStart(2, "0")}`;
+
+		const updatedData = {
+			...rest,
+			preparation_time,
+		};
+		return updatedData;
+	};
+
+	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+		const formattedData = formatData(data);
+		console.log(formattedData);
+		try {
+			const response = await axios.post(
+				"https://react-testfetch-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
+				formattedData,
+				{
+					headers: {
+						"Content-Type": "application/json",
+					},
+				}
+			);
+			console.log(response);
+		} catch (error: any) {
+			if (error.response) {
+				console.log("Validation errors:", error.response.data);
+			} else {
+				console.error("Request failed:", error.message);
+			}
+		}
 		reset({});
 	};
 
