@@ -1,25 +1,21 @@
 import classes from "./Form.module.scss";
 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Select, MenuItem, Button, Slider, TextField, Typography } from "@mui/material";
+import { Select, MenuItem, Typography } from "@mui/material";
 import options from "../constants/selectOptions";
 import defaultValues from "../constants/defaultValuesForDishes";
 import IFormInput from "./shared/IFormInput.interface";
 import FormInputSlider from "./form-components/FormInputSlider";
 import FormSubmitButton from "./form-components/FormSubmitButton";
 import FormInputText from "./form-components/FormInputText";
+import FormInputSelect from "./form-components/FormInputSelect";
 
 const Form = () => {
-	const {
-		control,
-		handleSubmit,
-		reset,
-		watch,
-		formState: { errors },
-	} = useForm<IFormInput>({
+	const methods = useForm<IFormInput>({
 		defaultValues: { ...defaultValues },
 		shouldUnregister: true,
 	});
+	const { control, handleSubmit, watch, reset } = methods;
 	const selectedType = watch("type");
 
 	const renderAdditionalInputs = () => {
@@ -113,35 +109,12 @@ const Form = () => {
 					inputProps={{ min: 0, max: 59 }}
 				/>
 			</div>
-			<Controller
+			<FormInputSelect
 				name="type"
 				control={control}
 				rules={{ required: true, validate: (value) => value !== "default" }}
-				render={({ field }) => (
-					<Select
-						{...field}
-						label="Type of meal"
-						variant="outlined"
-						fullWidth
-						required
-					>
-						{options.map((option) => (
-							<MenuItem
-								key={option.value}
-								value={option.value}
-							>
-								{option.label}
-							</MenuItem>
-						))}
-					</Select>
-				)}
+				label="Type of dish"
 			/>
-			{errors.type && errors.type.type === "required" && (
-				<Typography color="error">Please select a meal type</Typography>
-			)}
-			{errors.type && errors.type.type === "validate" && (
-				<Typography color="error">Please select a valid meal type</Typography>
-			)}
 			{renderAdditionalInputs()}
 			<FormSubmitButton />
 		</form>
