@@ -2,50 +2,9 @@ import classes from "./Form.module.scss";
 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Select, MenuItem, Button, Slider, TextField, Typography } from "@mui/material";
-
-const options = [
-	{ value: "default", label: "Choose type of your dish" },
-	{ value: "pizza", label: "Pizza" },
-	{ value: "soup", label: "Soup" },
-	{ value: "sandwich", label: "Sandwich" },
-];
-
-const defaultValues = {
-	name: "Dish",
-	type: "default",
-	prep_hours: 1,
-	prep_minutes: 0,
-	prep_seconds: 0,
-	no_of_slices: 1,
-	diameter: 1,
-	spiciness_scale: 5,
-	slices_of_bread: 1,
-};
-
-interface IPreparationTime {
-	hours: number;
-	minutes: number;
-	seconds: number;
-}
-
-interface IPizza {
-	no_of_slices: number;
-	diameter: number;
-}
-
-interface ISoup {
-	spiciness_scale: number;
-}
-
-interface ISandwich {
-	slices_of_bread: number;
-}
-
-type IFormInput = {
-	name: string;
-	type: string;
-	preparation_time: IPreparationTime;
-} & (IPizza | ISoup | ISandwich);
+import options from "../constants/selectOptions";
+import defaultValues from "../constants/defaultValuesForDishes";
+import IFormInput from "./shared/IFormInput.interface";
 
 const Form = () => {
 	const {
@@ -178,7 +137,7 @@ const Form = () => {
 			)}
 			<div>
 				<Controller
-					name="preparation_time.hours"
+					name="prep_hours"
 					control={control}
 					rules={{ required: true }}
 					render={({ field }) => (
@@ -192,7 +151,7 @@ const Form = () => {
 					)}
 				/>
 				<Controller
-					name="preparation_time.minutes"
+					name="prep_minutes"
 					control={control}
 					rules={{ required: true }}
 					render={({ field }) => (
@@ -206,7 +165,7 @@ const Form = () => {
 					)}
 				/>
 				<Controller
-					name="preparation_time.seconds"
+					name="prep_seconds"
 					control={control}
 					rules={{ required: true }}
 					render={({ field }) => (
