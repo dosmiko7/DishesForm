@@ -1,17 +1,25 @@
-import classes from "./Form.module.scss";
-
+// Hooks
 import { SubmitHandler, useForm } from "react-hook-form";
-import { defaultValues } from "../../constants/FormProps";
-import { IFormInput } from "../../interfaces/FormTypes";
+import useFormSubmit from "../../hooks/useFormSubmit";
+// SCSS
+import classes from "./Form.module.scss";
+// Components
 import FormSubmitButton from "./FormSubmitButton";
 import FormInputText from "./FormInputText";
 import FormInputSelect from "./FormInputSelect";
-import { Box, Grid, Typography } from "@mui/material";
-import axios from "axios";
-import { formatData } from "../../utils/formatData";
 import AdditionalInputs from "./FormAdditionalInputs";
+import { Box, Grid, Typography } from "@mui/material";
+// Types
+import { IFormInput } from "../../interfaces/FormTypes";
+// Props
+import { defaultValues } from "../../constants/FormProps";
+// Utils
+import { formatData } from "../../utils/formatData";
 
 const Form = () => {
+	const { postData, response, error } = useFormSubmit(
+		"https://react-testfetch-default-rtdb.europe-west1.firebasedatabase.app/movies.json"
+	);
 	const methods = useForm<IFormInput>({
 		defaultValues: { ...defaultValues },
 		shouldUnregister: true,
@@ -19,28 +27,11 @@ const Form = () => {
 	const { control, handleSubmit, watch, reset } = methods;
 	const selectedType = watch("type");
 
-	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		const formattedData = formatData(data);
-		console.log(formattedData);
-		try {
-			const response = await axios.post(
-				"https://react-testfetch-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
-				formattedData,
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			);
-			console.log(response);
-		} catch (error: any) {
-			if (error.response) {
-				console.log("Validation errors:", error.response.data);
-			} else {
-				console.error("Request failed:", error.message);
-			}
-		}
-		reset({});
+		postData(formattedData);
+		console.log(response);
+		console.log(error);
 	};
 
 	return (
