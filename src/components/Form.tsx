@@ -27,42 +27,21 @@ const Form = () => {
 			case "pizza":
 				return (
 					<>
-						<Controller
+						<FormInputText
 							name="no_of_slices"
 							control={control}
 							rules={{ required: true }}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label="Number of slices"
-									variant="outlined"
-									type="number"
-									fullWidth
-									value={field.value ?? ""}
-									onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
-									inputProps={{ min: 1 }}
-									required
-								/>
-							)}
+							label="Number of slices"
+							type="number"
+							inputProps={{ min: 1 }}
 						/>
-
-						<Controller
+						<FormInputText
 							name="diameter"
 							control={control}
 							rules={{ required: true }}
-							render={({ field }) => (
-								<TextField
-									{...field}
-									label="Diameter"
-									variant="outlined"
-									type="number"
-									fullWidth
-									value={field.value ?? ""}
-									onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
-									inputProps={{ min: 1 }}
-									required
-								/>
-							)}
+							label="Diameter"
+							type="number"
+							inputProps={{ min: 1, step: 0.1 }}
 						/>
 					</>
 				);
@@ -80,23 +59,13 @@ const Form = () => {
 				);
 			case "sandwich":
 				return (
-					<Controller
+					<FormInputText
 						name="slices_of_bread"
 						control={control}
 						rules={{ required: true }}
-						render={({ field }) => (
-							<TextField
-								{...field}
-								label="Slices of bread"
-								variant="outlined"
-								type="number"
-								fullWidth
-								value={field.value ?? ""}
-								onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
-								inputProps={{ min: 1 }}
-								required
-							/>
-						)}
+						label="Slices of bread"
+						type="number"
+						inputProps={{ min: 1 }}
 					/>
 				);
 			default:
@@ -111,52 +80,38 @@ const Form = () => {
 
 	return (
 		<form onSubmit={handleSubmit(onSubmit)}>
-			<Controller
+			<FormInputText
 				name="name"
 				control={control}
 				rules={{ required: true, pattern: /^[A-Za-z]+$/i }}
-				render={({ field }) => (
-					<TextField
-						{...field}
-						type="text"
-						label="name"
-						required
-					/>
-				)}
+				type="text"
+				label="Name"
 			/>
-			{errors.name && errors.name.type === "pattern" && (
-				<Typography color="error">Meal should have only letters</Typography>
-			)}
-			{errors.name && errors.name.type === "required" && (
-				<Typography color="error">Please enter name for your dish</Typography>
-			)}
 			<div>
-				<div>
-					<FormInputText
-						name={"prep_hours"}
-						control={control}
-						rules={{ required: true, pattern: /^[0-9]*$/ }}
-						type="number"
-						label="Hours"
-						inputProps={{ min: 0 }}
-					/>
-					<FormInputText
-						name={"prep_minutes"}
-						control={control}
-						rules={{ required: true, pattern: /^[0-9]*$/ }}
-						type="number"
-						label="Minutes"
-						inputProps={{ min: 0, max: 59 }}
-					/>
-					<FormInputText
-						name={"prep_seconds"}
-						control={control}
-						rules={{ required: true, pattern: /^[0-9]*$/ }}
-						type="number"
-						label="Seconds"
-						inputProps={{ min: 0, max: 59 }}
-					/>
-				</div>
+				<FormInputText
+					name={"prep_hours"}
+					control={control}
+					rules={{ required: true, pattern: /^[0-9]*$/ }}
+					type="number"
+					label="Hours"
+					inputProps={{ min: 0 }}
+				/>
+				<FormInputText
+					name={"prep_minutes"}
+					control={control}
+					rules={{ required: true, pattern: /^[0-9]*$/ }}
+					type="number"
+					label="Minutes"
+					inputProps={{ min: 0, max: 59 }}
+				/>
+				<FormInputText
+					name={"prep_seconds"}
+					control={control}
+					rules={{ required: true, pattern: /^[0-9]*$/ }}
+					type="number"
+					label="Seconds"
+					inputProps={{ min: 0, max: 59 }}
+				/>
 			</div>
 			<Controller
 				name="type"
