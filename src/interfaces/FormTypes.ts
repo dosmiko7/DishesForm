@@ -1,7 +1,7 @@
-import { ValidationRule } from "react-hook-form";
+import { Control, ValidationRule } from "react-hook-form";
 
 export interface IComponentInputProps {
-	control: any;
+	control: Control<any>;
 	name: keyof IFormInput;
 	rules?: { required: boolean; pattern?: ValidationRule<RegExp>; validate?: (value: any) => any };
 	label?: string;
@@ -10,10 +10,7 @@ export interface IComponentInputProps {
 	inputProps?: { min: number; max?: number; step?: number; maxLength?: string };
 	min?: number;
 	max?: number;
-	value?: number | string;
 	defaultValue?: number;
-	onChange?: (event: any) => any;
-	transform?: any;
 }
 
 export interface IFormInput {

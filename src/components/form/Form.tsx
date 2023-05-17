@@ -32,6 +32,7 @@ const Form = () => {
 		postData(formattedData);
 		console.log(response);
 		console.log(error);
+		reset({});
 	};
 
 	return (

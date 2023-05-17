@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 const useFormSubmit = (url: string) => {
-	const [response, setResponse] = useState<any | null>(null);
+	const [response, setResponse] = useState<any>(null);
 	const [error, setError] = useState<string | null>(null);
 
 	const postData = async (data: {}) => {
