@@ -1,7 +1,7 @@
 import classes from "./Form.module.scss";
 
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Select, MenuItem, Button, TextField, Typography } from "@mui/material";
+import { Select, MenuItem, Button, Slider, TextField, Typography } from "@mui/material";
 
 const options = [
 	{ value: "default", label: "Choose type of your dish" },
@@ -52,11 +52,103 @@ const Form = () => {
 		control,
 		handleSubmit,
 		reset,
+		watch,
 		formState: { errors },
 	} = useForm<IFormInput>({
 		defaultValues: { ...defaultValues },
 		shouldUnregister: true,
 	});
+	const selectedType = watch("type");
+
+	const renderAdditionalInputs = () => {
+		switch (selectedType) {
+			case "pizza":
+				return (
+					<>
+						<Controller
+							name="no_of_slices"
+							control={control}
+							rules={{ required: true }}
+							render={({ field }) => (
+								<TextField
+									{...field}
+									label="Number of slices"
+									variant="outlined"
+									type="number"
+									fullWidth
+									value={field.value ?? ""}
+									onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
+									inputProps={{ min: 1 }}
+									required
+								/>
+							)}
+						/>
+
+						<Controller
+							name="diameter"
+							control={control}
+							rules={{ required: true }}
+							render={({ field }) => (
+								<TextField
+									{...field}
+									label="Diameter"
+									variant="outlined"
+									type="number"
+									fullWidth
+									value={field.value ?? ""}
+									onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
+									inputProps={{ min: 1 }}
+									required
+								/>
+							)}
+						/>
+					</>
+				);
+			case "soup":
+				return (
+					<Controller
+						name="spiciness_scale"
+						control={control}
+						rules={{ required: true }}
+						render={({ field }) => (
+							<Slider
+								aria-label="Spiciness"
+								defaultValue={5}
+								valueLabelDisplay="auto"
+								onChange={(e, value) => field.onChange(value)}
+								step={1}
+								marks
+								min={1}
+								max={10}
+							/>
+						)}
+					/>
+				);
+			case "sandwich":
+				return (
+					<Controller
+						name="slices_of_bread"
+						control={control}
+						rules={{ required: true }}
+						render={({ field }) => (
+							<TextField
+								{...field}
+								label="Slices of bread"
+								variant="outlined"
+								type="number"
+								fullWidth
+								value={field.value ?? ""}
+								onChange={(e) => field.onChange(parseInt(e.target.value, 10))}
+								inputProps={{ min: 1 }}
+								required
+							/>
+						)}
+					/>
+				);
+			default:
+				return null;
+		}
+	};
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		console.log(data);
@@ -157,6 +249,7 @@ const Form = () => {
 			{errors.type && errors.type.type === "validate" && (
 				<Typography color="error">Please select a valid meal type</Typography>
 			)}
+			{renderAdditionalInputs()}
 			<Button
 				variant="outlined"
 				type="submit"
