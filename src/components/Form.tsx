@@ -7,6 +7,7 @@ import defaultValues from "../constants/defaultValuesForDishes";
 import IFormInput from "./shared/IFormInput.interface";
 import FormInputSlider from "./form-components/FormInputSlider";
 import FormSubmitButton from "./form-components/FormSubmitButton";
+import FormInputText from "./form-components/FormInputText";
 
 const Form = () => {
 	const {
@@ -130,48 +131,32 @@ const Form = () => {
 				<Typography color="error">Please enter name for your dish</Typography>
 			)}
 			<div>
-				<Controller
-					name="prep_hours"
-					control={control}
-					rules={{ required: true }}
-					render={({ field }) => (
-						<TextField
-							{...field}
-							type="number"
-							label="Hours"
-							inputProps={{ min: 0 }}
-							required
-						/>
-					)}
-				/>
-				<Controller
-					name="prep_minutes"
-					control={control}
-					rules={{ required: true }}
-					render={({ field }) => (
-						<TextField
-							{...field}
-							type="number"
-							label="Minutes"
-							inputProps={{ min: 0, max: 59 }}
-							required
-						/>
-					)}
-				/>
-				<Controller
-					name="prep_seconds"
-					control={control}
-					rules={{ required: true }}
-					render={({ field }) => (
-						<TextField
-							{...field}
-							type="number"
-							label="Seconds"
-							inputProps={{ min: 0, max: 59 }}
-							required
-						/>
-					)}
-				/>
+				<div>
+					<FormInputText
+						name={"prep_hours"}
+						control={control}
+						rules={{ required: true, pattern: /^[0-9]*$/ }}
+						type="number"
+						label="Hours"
+						inputProps={{ min: 0 }}
+					/>
+					<FormInputText
+						name={"prep_minutes"}
+						control={control}
+						rules={{ required: true, pattern: /^[0-9]*$/ }}
+						type="number"
+						label="Minutes"
+						inputProps={{ min: 0, max: 59 }}
+					/>
+					<FormInputText
+						name={"prep_seconds"}
+						control={control}
+						rules={{ required: true, pattern: /^[0-9]*$/ }}
+						type="number"
+						label="Seconds"
+						inputProps={{ min: 0, max: 59 }}
+					/>
+				</div>
 			</div>
 			<Controller
 				name="type"
