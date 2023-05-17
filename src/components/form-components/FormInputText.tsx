@@ -12,7 +12,16 @@ const FormInputText = ({ name, control, rules, type, label, inputProps }: ICompo
 				<TextField
 					helperText={error ? "Incorrect entry" : ""}
 					error={!!error}
-					onChange={onChange}
+					onChange={(e) => {
+						const inputValue = e.target.value;
+						const parsedValue = type === "number" ? parseFloat(inputValue) : inputValue;
+
+						if (type === "number" && typeof parsedValue === "string") {
+							onChange("");
+						} else {
+							onChange(parsedValue);
+						}
+					}}
 					value={isNaN(value) ? value.toString() : parseFloat(value)}
 					label={label}
 					type={type}

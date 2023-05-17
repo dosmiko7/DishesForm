@@ -1,14 +1,13 @@
 import classes from "./Form.module.scss";
 
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Select, MenuItem, Typography } from "@mui/material";
-import options from "../constants/selectOptions";
+import { SubmitHandler, useForm } from "react-hook-form";
 import defaultValues from "../constants/defaultValuesForDishes";
 import IFormInput from "./shared/IFormInput.interface";
 import FormInputSlider from "./form-components/FormInputSlider";
 import FormSubmitButton from "./form-components/FormSubmitButton";
 import FormInputText from "./form-components/FormInputText";
 import FormInputSelect from "./form-components/FormInputSelect";
+import { Grid } from "@mui/material";
 
 const Form = () => {
 	const methods = useForm<IFormInput>({
@@ -75,49 +74,59 @@ const Form = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)}>
-			<FormInputText
-				name="name"
-				control={control}
-				rules={{ required: true, pattern: /^[A-Za-z]+$/i }}
-				type="text"
-				label="Name"
-			/>
-			<div>
+		<Grid
+			className={classes.container}
+			container
+			sx={{ flexGrow: 1 }}
+		>
+			<form
+				className={classes.form}
+				onSubmit={handleSubmit(onSubmit)}
+			>
+				<h1 className={classes.form__heading}>HexOcean Dishes</h1>
 				<FormInputText
-					name={"prep_hours"}
+					name="name"
 					control={control}
-					rules={{ required: true, pattern: /^[0-9]*$/ }}
-					type="number"
-					label="Hours"
-					inputProps={{ min: 0 }}
+					rules={{ required: true, pattern: /^[A-Za-z]+$/i }}
+					type="text"
+					label="Name"
 				/>
-				<FormInputText
-					name={"prep_minutes"}
+				<div className={classes.form__duration_container}>
+					<FormInputText
+						name={"prep_hours"}
+						control={control}
+						rules={{ required: true, pattern: /^[0-9]*$/ }}
+						type="number"
+						label="Hours"
+						inputProps={{ min: 0 }}
+					/>
+					<FormInputText
+						name={"prep_minutes"}
+						control={control}
+						rules={{ required: true, pattern: /^[0-9]*$/ }}
+						type="number"
+						label="Minutes"
+						inputProps={{ min: 0, max: 59 }}
+					/>
+					<FormInputText
+						name={"prep_seconds"}
+						control={control}
+						rules={{ required: true, pattern: /^[0-9]*$/ }}
+						type="number"
+						label="Seconds"
+						inputProps={{ min: 0, max: 59 }}
+					/>
+				</div>
+				<FormInputSelect
+					name="type"
 					control={control}
-					rules={{ required: true, pattern: /^[0-9]*$/ }}
-					type="number"
-					label="Minutes"
-					inputProps={{ min: 0, max: 59 }}
+					rules={{ required: true, validate: (value) => value !== "default" }}
+					label="Type of dish"
 				/>
-				<FormInputText
-					name={"prep_seconds"}
-					control={control}
-					rules={{ required: true, pattern: /^[0-9]*$/ }}
-					type="number"
-					label="Seconds"
-					inputProps={{ min: 0, max: 59 }}
-				/>
-			</div>
-			<FormInputSelect
-				name="type"
-				control={control}
-				rules={{ required: true, validate: (value) => value !== "default" }}
-				label="Type of dish"
-			/>
-			{renderAdditionalInputs()}
-			<FormSubmitButton />
-		</form>
+				{renderAdditionalInputs()}
+				<FormSubmitButton />
+			</form>
+		</Grid>
 	);
 };
 
