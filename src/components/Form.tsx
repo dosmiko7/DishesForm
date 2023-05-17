@@ -5,6 +5,7 @@ import { Select, MenuItem, Button, Slider, TextField, Typography } from "@mui/ma
 import options from "../constants/selectOptions";
 import defaultValues from "../constants/defaultValuesForDishes";
 import IFormInput from "./shared/IFormInput.interface";
+import FormInputSlider from "./form-components/FormInputSlider";
 
 const Form = () => {
 	const {
@@ -65,22 +66,14 @@ const Form = () => {
 				);
 			case "soup":
 				return (
-					<Controller
+					<FormInputSlider
 						name="spiciness_scale"
 						control={control}
 						rules={{ required: true }}
-						render={({ field }) => (
-							<Slider
-								aria-label="Spiciness"
-								defaultValue={5}
-								valueLabelDisplay="auto"
-								onChange={(e, value) => field.onChange(value)}
-								step={1}
-								marks
-								min={1}
-								max={10}
-							/>
-						)}
+						label="Spiciness"
+						defaultValue={5}
+						min={1}
+						max={10}
 					/>
 				);
 			case "sandwich":
