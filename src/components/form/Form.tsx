@@ -30,7 +30,7 @@ const Form = () => {
 	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
 		const formattedData = formatData(data);
 		try {
-			await axios.post("https://react-testfetch-default-rtdb.europe-west1.firebasedatabase.app", formattedData, {
+			await axios.post("https://umzzcc503l.execute-api.us-west-2.amazonaws.com/dishes/", formattedData, {
 				headers: {
 					"Content-Type": "application/json",
 				},
