@@ -1,4 +1,5 @@
 // Hooks
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 // Styles
 import classes from "./Form.module.scss";
@@ -15,8 +16,10 @@ import { defaultValues } from "../../constants/FormProps";
 import { formatData } from "../../utils/formatData";
 // Axios
 import axios from "axios";
+import FormResponseMessage from "./FormResponseMessage";
 
 const Form = () => {
+	const [responseMessage, setResponseMessage] = useState<string>("");
 	const methods = useForm<IFormInput>({
 		defaultValues: { ...defaultValues },
 		shouldUnregister: true,
@@ -27,21 +30,17 @@ const Form = () => {
 	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
 		const formattedData = formatData(data);
 		try {
-			const response = await axios.post(
-				"https://react-testfetch-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
-				formattedData,
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
-			);
-			console.log(response);
+			await axios.post("https://react-testfetch-default-rtdb.europe-west1.firebasedatabase.app", formattedData, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			setResponseMessage("Success!");
 		} catch (error: any) {
 			if (error.response) {
-				console.log("Validation errors:", error.response.data);
+				setResponseMessage("Validation errors: " + error.response.data);
 			} else {
-				console.error("Request failed:", error.message);
+				setResponseMessage("Request failed: " + error.message);
 			}
 		}
 		reset({});
@@ -58,7 +57,7 @@ const Form = () => {
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<Typography
-					variant="h3"
+					variant="h4"
 					align="center"
 				>
 					HexOcean Dishes
@@ -108,6 +107,7 @@ const Form = () => {
 					control={control}
 				/>
 				<FormSubmitButton />
+				<FormResponseMessage message={responseMessage} />
 			</form>
 		</Grid>
 	);

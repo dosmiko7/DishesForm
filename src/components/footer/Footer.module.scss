@@ -1,21 +1,45 @@
 .footer {
 	box-sizing: border-box;
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin-top: 2rem;
+
+	@media only screen and (max-height: 780px) {
+		flex-direction: row;
+		justify-content: space-between;
+		font-size: 0.8rem;
+		padding: 0 0.8rem 0.4rem;
+	}
+
+	@media only screen and (max-height: 715px), (max-width: 305px) {
+		display: none;
+	}
 
 	&__links {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		gap: 0.5rem;
+
+		@media only screen and (max-height: 780px) {
+			flex-direction: row;
+		}
+
+		@media only screen and (max-width: 390px) {
+			flex-direction: column;
+		}
 	}
 
 	&__heading {
 		margin: 0;
+
+		@media only screen and (max-height: 780px) and (max-width: 240px) {
+			display: none;
+		}
 	}
 
 	&__list {
@@ -26,6 +50,11 @@
 		font-size: 1.6rem;
 		padding-left: 0;
 		margin: 0;
+
+		@media only screen and (max-height: 780px) {
+			gap: 0.5rem;
+			padding-right: 0.5rem;
+		}
 	}
 
 	&__item {
@@ -64,6 +93,10 @@
 		color: #7f7f7f;
 		font-size: 0.8rem;
 		text-align: center;
+
+		@media only screen and (max-height: 780px) {
+			font-size: 0.6rem;
+		}
 	}
 }
 
