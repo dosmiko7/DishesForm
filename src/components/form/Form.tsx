@@ -27,7 +27,7 @@ const Form = () => {
 	const { control, handleSubmit, watch, reset } = methods;
 	const selectedType = watch("type");
 
-	const onSubmit: SubmitHandler<IFormInput> = (data) => {
+	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
 		const formattedData = formatData(data);
 		try {
 			await axios.post("https://umzzcc503l.execute-api.us-west-2.amazonaws.com/dishes/", formattedData, {
