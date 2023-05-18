@@ -11,17 +11,17 @@ const AdditionalInputs = ({ name, type, control }: IComponentInputProps) => {
 						name="no_of_slices"
 						control={control}
 						rules={{ required: true }}
-						label="Number of slices"
+						label="Number of slices (1 to 60)"
 						type="number"
-						inputProps={{ min: 1 }}
+						inputProps={{ min: 1, max: 60 }}
 					/>
 					<FormInputText
 						name="diameter"
 						control={control}
 						rules={{ required: true }}
-						label="Diameter"
+						label="Diameter (1 to 42)"
 						type="number"
-						inputProps={{ min: 1, step: 0.1 }}
+						inputProps={{ min: 1, max: 42, step: 0.1 }}
 					/>
 				</>
 			);
@@ -43,9 +43,9 @@ const AdditionalInputs = ({ name, type, control }: IComponentInputProps) => {
 					name="slices_of_bread"
 					control={control}
 					rules={{ required: true }}
-					label="Slices of bread"
+					label="Slices of bread (1 to 6)"
 					type="number"
-					inputProps={{ min: 1 }}
+					inputProps={{ min: 1, max: 6 }}
 				/>
 			);
 		default:

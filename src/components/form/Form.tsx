@@ -38,7 +38,7 @@ const Form = () => {
 			setResponseMessage("Success!");
 		} catch (error: any) {
 			if (error.response) {
-				setResponseMessage("Validation errors: " + error.response.data);
+				setResponseMessage("Validation errors: " + error.message);
 			} else {
 				setResponseMessage("Request failed: " + error.message);
 			}
@@ -67,8 +67,9 @@ const Form = () => {
 					control={control}
 					rules={{ required: true, pattern: /^[A-Za-z]+$/i }}
 					type="text"
-					label="Name"
+					label="Name (only letters)"
 				/>
+				<Typography variant="overline">Preparation time</Typography>
 				<Box className={classes.form__duration_container}>
 					<FormInputText
 						name={"prep_hours"}
