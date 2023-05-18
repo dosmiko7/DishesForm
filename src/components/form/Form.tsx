@@ -1,15 +1,20 @@
-import classes from "./Form.module.scss";
-
+// Hooks
 import { SubmitHandler, useForm } from "react-hook-form";
-import { defaultValues } from "../../constants/FormProps";
-import { IFormInput } from "../../interfaces/FormTypes";
+// Styles
+import classes from "./Form.module.scss";
+// Components
 import FormSubmitButton from "./FormSubmitButton";
 import FormInputText from "./FormInputText";
 import FormInputSelect from "./FormInputSelect";
-import { Box, Grid, Typography } from "@mui/material";
-import axios from "axios";
-import { formatData } from "../../utils/formatData";
 import AdditionalInputs from "./FormAdditionalInputs";
+import { Box, Grid, Typography } from "@mui/material";
+// Types
+import { IFormInput } from "../../interfaces/FormTypes";
+import { defaultValues } from "../../constants/FormProps";
+// Utils
+import { formatData } from "../../utils/formatData";
+// Axios
+import axios from "axios";
 
 const Form = () => {
 	const methods = useForm<IFormInput>({
@@ -21,7 +26,6 @@ const Form = () => {
 
 	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
 		const formattedData = formatData(data);
-		console.log(formattedData);
 		try {
 			const response = await axios.post(
 				"https://react-testfetch-default-rtdb.europe-west1.firebasedatabase.app/movies.json",
