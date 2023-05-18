@@ -1,10 +1,8 @@
 .container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	margin: 2% auto;
+
 	max-width: 60rem;
-	max-height: 45rem;
+	max-height: auto;
 	border-radius: 20px;
 	overflow: hidden;
 	background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 57%, transparent 50%),
@@ -40,5 +38,9 @@
 
 	@media only screen and (max-width: 650px) {
 		width: 100%;
+	}
+
+	& .response-message {
+		text-align: center;
 	}
 }

@@ -1,7 +1,7 @@
 // Hooks
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import useFormSubmit from "../../hooks/useFormSubmit";
-// SCSS
+// Styles
 import classes from "./Form.module.scss";
 // Components
 import FormSubmitButton from "./FormSubmitButton";
@@ -11,15 +11,15 @@ import AdditionalInputs from "./FormAdditionalInputs";
 import { Box, Grid, Typography } from "@mui/material";
 // Types
 import { IFormInput } from "../../interfaces/FormTypes";
-// Props
 import { defaultValues } from "../../constants/FormProps";
 // Utils
 import { formatData } from "../../utils/formatData";
+// Axios
+import axios from "axios";
+import FormResponseMessage from "./FormResponseMessage";
 
 const Form = () => {
-	const { postData, response, error } = useFormSubmit(
-		"https://react-testfetch-default-rtdb.europe-west1.firebasedatabase.app/movies.json"
-	);
+	const [responseMessage, setResponseMessage] = useState<string>("");
 	const methods = useForm<IFormInput>({
 		defaultValues: { ...defaultValues },
 		shouldUnregister: true,
@@ -29,9 +29,20 @@ const Form = () => {
 
 	const onSubmit: SubmitHandler<IFormInput> = (data) => {
 		const formattedData = formatData(data);
-		postData(formattedData);
-		console.log(response);
-		console.log(error);
+		try {
+			await axios.post("https://umzzcc503l.execute-api.us-west-2.amazonaws.com/dishes/", formattedData, {
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
+			setResponseMessage("Success!");
+		} catch (error: any) {
+			if (error.response) {
+				setResponseMessage("Validation errors: " + error.response.data);
+			} else {
+				setResponseMessage("Request failed: " + error.message);
+			}
+		}
 		reset({});
 	};
 
@@ -46,7 +57,7 @@ const Form = () => {
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<Typography
-					variant="h3"
+					variant="h4"
 					align="center"
 				>
 					HexOcean Dishes
@@ -96,6 +107,7 @@ const Form = () => {
 					control={control}
 				/>
 				<FormSubmitButton />
+				<FormResponseMessage message={responseMessage} />
 			</form>
 		</Grid>
 	);
