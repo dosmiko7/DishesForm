@@ -1,7 +1,7 @@
 
-# HexOcean Dishes Form
+# Dishes Form
 
-Form created for HexOcean.
+Form created with MUI and React Hook Form.
 
 
 
@@ -38,7 +38,7 @@ Start the server
 
 ## Demo
 
-https://hexocean-form-mo.netlify.app/
+https://form-mo.netlify.app/
 
 
 ## Tech Stack
