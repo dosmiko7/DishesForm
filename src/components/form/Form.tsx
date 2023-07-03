@@ -60,7 +60,7 @@ const Form = () => {
 					variant="h4"
 					align="center"
 				>
-					HexOcean Dishes
+					Form Dishes
 				</Typography>
 				<FormInputText
 					name="name"
