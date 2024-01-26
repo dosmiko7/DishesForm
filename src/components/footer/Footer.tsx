@@ -33,7 +33,7 @@ const Footer = () => {
 				</a>
 			</div>
 			<div className={classes.footer__copyright}>
-				<p>&#169; Designed and coded by Mikołaj Oberda for HexOcean</p>
+				<p>&#169; Designed and coded by Mikołaj Oberda</p>
 			</div>
 		</footer>
 	);
